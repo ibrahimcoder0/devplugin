@@ -5,8 +5,8 @@
  * Plugin URI: https://www.example.com
  * Description: This is a plugin for WordPress
  * Version: 1.0.0
- * Author: ThemePure
- * Author URI: https://www.themepure.net
+ * Author: Nanantal
+ * Author URI: https://www.Nanantal.com
  * Requires at least: 6.7
  * Requires PHP: 8.2
  * Text Domain: my-plugin
@@ -46,6 +46,7 @@ use Nanantaltheme\Admin\Test;
 //     ));
 //     echo '</ul>';
 // });
+
 add_action('wp_footer', function () {
 
     $all_tags = get_tags(array(
@@ -100,7 +101,6 @@ add_action('wp_footer', function () {
         }
     }
 });
-
 
 
 
