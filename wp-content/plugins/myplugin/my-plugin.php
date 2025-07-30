@@ -47,60 +47,57 @@ use Nanantaltheme\Admin\Test;
 //     echo '</ul>';
 // });
 
-// add_action('wp_footer', function () {
+add_action('wp_footer', function () {
 
-//     $all_tags = get_tags(array(
-//         'taxonomy' => 'post_tag',
-//         'hide_empty' => false,
-//     ));
-//     // echo '<pre>';
-//     // var_dump($all_tags);
+    // $all_tags = get_tags(array(
+    //     'taxonomy' => 'post_tag',
+    //     'hide_empty' => false,
+    // ));
+    // // echo '<pre>';
+    // // var_dump($all_tags);
 
-//     foreach ($all_tags as $single_tags) {
+    // foreach ($all_tags as $single_tags) {
 
-//         // echo $single_tags->name . ' - '. '(' . $single_tags->count .')' . '<br>';
+    //     // echo $single_tags->name . ' - '. '(' . $single_tags->count .')' . '<br>';
 
-//         echo '<a href="' . get_tag_link($single_tags->term_id) . '" class="tag-link">' . $single_tags->name . ' (' . $single_tags->count . ')</a> ' . '<br>';
-//     }
-
-
-//     $all_location = get_tags(array(
-//         'taxonomy' => 'mt_location',
-//         'hide_empty' => false,
-//     ));
-//     // echo '<pre>';
-//     // var_dump($all_tags);
-
-//     foreach ($all_location as $location) {
-
-//         // echo $single_tags->name . ' - '. '(' . $single_tags->count .')' . '<br>';
-
-//         echo '<a href="' . get_tag_link($location->term_id) . '" class="tag-link">' . $location->name . ' (' . $location->count . ')</a> ' . '<br>';
-//     }
+    //     echo '<a href="' . get_tag_link($single_tags->term_id) . '" class="tag-link">' . $single_tags->name . ' (' . $single_tags->count . ')</a> ' . '<br>';
+    // }
 
 
-//     $all_pages = new WP_Query(array(
-//         'post_type' => 'post',
-//         'posts_per_page' => -1,
-//     ));
+    // $all_location = get_tags(array(
+    //     'taxonomy' => 'mt_location',
+    //     'hide_empty' => false,
+    // ));
+    // // echo '<pre>';
+    // // var_dump($all_tags);
 
-//     while ($all_pages->have_posts()) {
-//         $all_pages->the_post();
-//         echo get_the_title() . '<br>';
-//         echo get_the_content() . '<br>';
-//         echo '<hr>';
-//         echo '<a href="' . get_permalink() . '" class="post-link">Read More</a>' . '<br>';
-//         echo '<hr>';
-//         the_post_thumbnail();
-//         $categories = get_the_terms(get_the_ID(), 'category');
-//         if ($categories && !is_wp_error($categories)) {
-//             echo '<ul class="post-categories">';
-//             foreach ($categories as $category) {
-//                 echo '<li><a href="' . get_category_link($category->term_id) . '" class="category-link">' . esc_html($category->name) . '</a></li>';
-//             }
-//         }
-//     }
-// });
+    // foreach ($all_location as $location) {
+
+    //     // echo $single_tags->name . ' - '. '(' . $single_tags->count .')' . '<br>';
+
+    //     echo '<a href="' . get_tag_link($location->term_id) . '" class="tag-link">' . $location->name . ' (' . $location->count . ')</a> ' . '<br>';
+    // }
+
+
+    $all_pages = new WP_Query(array(
+        'post_type' => 'mt_book',
+        'posts_per_page' => -1,
+    ));
+
+    while ($all_pages->have_posts()) {
+        $all_pages->the_post();
+        echo get_the_title() . '<br>';
+        echo get_the_content() . '<br>';
+        echo '<hr>';
+        echo '<a href="' . get_permalink() . '" class="post-link">Read More</a>' . '<br>';
+        echo '<hr>';
+        the_post_thumbnail();
+        $categories = get_the_terms(get_the_ID(), 'mt_category');
+        foreach ($categories as $category) {
+            echo '<a href="' . get_category_link($category->term_id) . '" class="category-link">' . esc_html($category->name) . '</a>';
+        }
+    }
+});
 
 
 
@@ -133,6 +130,7 @@ add_action('init', function () {
         'labels' => array(
             'name' => __('Books', 'my-plugin'),
             'singular_name' => __('Book', 'my-plugin'),
+            'all_items'      => __('All Books', 'my-plugin'),
             'add_new_item' => __('Add New Book', 'my-plugin'),
             'edit_item' => __('Edit Book', 'my-plugin'),
             'new_item' => __('New Book', 'my-plugin'),
@@ -144,8 +142,26 @@ add_action('init', function () {
         'public' => true,
         'has_archive' => true,
         'rewrite' => array('slug' => 'all-books'),
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+        'supports' => array('title', 'editor', 'thumbnail'),
         'show_in_rest' => true,
         'menu_icon' => 'dashicons-book',
+        'capability_type'    => 'post',
+
+    ));
+
+    register_taxonomy('mt_category', 'mt_book', array(
+        'labels'        => array(
+            'name'      => 'Categories',
+            'singular_name' => 'category',
+            'add_new_item'  => 'Add New Category',
+            'all_items'     => 'All Categories',
+            'view_items'    => 'View Category'
+
+        ),
+        'public'            => true,
+        'hierarchical'      => true,
+        'rewrite'           => array('slug' => 'genre'),
+        'show_admin_column' => true,
+        'show_ui'           => true,
     ));
 });
