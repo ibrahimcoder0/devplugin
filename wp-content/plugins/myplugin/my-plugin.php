@@ -124,7 +124,6 @@ add_action('wp_footer', function () {
 
 
 // Custom Post Type 
-
 add_action('init', function () {
     register_post_type('mt_book', array(
         'labels' => array(
@@ -165,3 +164,66 @@ add_action('init', function () {
         'show_ui'           => true,
     ));
 });
+
+
+// Custom Menu Settings
+
+add_action('admin_menu', function () {
+    add_menu_page(
+        'My Plugin',
+        'My Plugin',
+        'manage_options',
+        'mtwp_my_plugin',
+        'mtwp_my_plugin_main_view',
+        'dashicons-welcome-write-blog',
+        20
+    );
+});
+
+function mtwp_my_plugin_main_view()
+{
+?>
+    <div class="wrap">
+        <h1>Welcome To My Plugin Settings</h1>
+        <form action="options.php" method="post">
+            <?php
+            settings_fields('mtwp_myplugin_data');
+            do_settings_sections('mtwp_my_plugin');
+            submit_button();
+
+            ?>
+        </form>
+    </div>
+<?php
+}
+
+
+
+add_action('admin_init', function () {
+    register_setting('mtwp_myplugin_data', 'mtwp_myplugin_data');
+    //General Settings
+    add_settings_section('mtwp_general_settings', 'General Settings', '', 'mtwp_my_plugin', '');
+    add_settings_field('mtwp_api_key', 'API Key', 'mtwp_api_key_field', 'mtwp_my_plugin', 'mtwp_general_settings', '');
+    //General Settings
+    add_settings_section('mtwp_advanced_settings', 'Advanced Settings', '', 'mtwp_my_plugin', '');
+    add_settings_field('mtwp_enable', 'Enable ', 'mtwp_enable_field', 'mtwp_my_plugin', 'mtwp_advanced_settings', '');
+});
+
+
+
+function mtwp_api_key_field()
+{
+    $input_option = get_option('mtwp_myplugin_data');
+?>
+    <input type="text" name="mtwp_myplugin_data[mtwp_api_key]"  value="<?php echo $input_option['mtwp_api_key'];?>">
+<?php
+}
+
+function mtwp_enable_field()
+{
+    $input_check = get_option('mtwp_myplugin_data');
+    $validet_input_check = isset($input_check['mtwp_enable'])? $input_check['mtwp_enable']: '';
+?>
+    <input type="checkbox" name="mtwp_myplugin_data[mtwp_enable]" <?php checked('on', $validet_input_check);  ?> >
+<?php
+}
