@@ -1,0 +1,54 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.tp-classes-content h2{
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+}
+.tp-classes-content p{
+  font-size: 18px;
+  color: #fff;
+}
+.tp-classes-thumb{
+  position: relative;
+}
+.tp-classes-content {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+.tp-courses-chef-dot{
+  text-align: center;
+}
+.my-slider-wrapper{
+  position: relative;
+  overflow: hidden;
+}
+.tp-pagenation-wrap{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 200px;
+  right: 0;
+  margin: 0 auto;
+  z-index: 3;
+  width: 100%;
+}
+.tp-pagenation-wrap span{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  line-height: 65px;
+}
+.tp-pagenation-wrap .tp-testimonial-next{
+  left: auto;
+  right: 200px;
+}
