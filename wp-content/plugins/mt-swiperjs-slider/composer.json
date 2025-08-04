@@ -1,0 +1,17 @@
+{
+    "name": "nanantaltheme/my-plugin",
+    "description": "This is a description",
+    "autoload": {
+        "psr-4": {
+            "Nanantaltheme\\MyPlugin\\": "includes/",
+            "Nanantaltheme\\Admin\\": "admin/"
+        }
+    },
+    "authors": [
+        {
+            "name": "NanantalTheme",
+            "email": "dev@gmail.com"
+        }
+    ],
+    "require": {}
+}
