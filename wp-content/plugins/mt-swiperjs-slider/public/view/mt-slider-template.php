@@ -21,8 +21,14 @@ $mt_slider_query = new WP_Query([
     <div class="tp-slider-3-wrapper fix p-relative">
         <?php if (!empty($mt_slider_arrow)): ?>
             <div class="tp-slider-3-arrow-box">
-                <button class="slider-prev active"><i class="fa-regular fa-arrow-left-long"></i></button>
-                <button class="slider-next"><i class="fa-regular fa-arrow-right-long"></i></button>
+                <?php
+
+                $mt_slider_left = '<button class="slider-prev active"><i class="fa-regular fa-arrow-left-long"></i></button>';
+                echo apply_filters('mt_sliderleft', $mt_slider_left);
+                $mt_slider_right = '<button class="slider-next"><i class="fa-regular fa-arrow-right-long"></i></button>';
+                echo apply_filters('mt_sliderright', $mt_slider_right);
+
+                ?>
             </div>
         <?php endif; ?>
         <div class="tp-slider-dots dots-color"></div>
@@ -59,6 +65,14 @@ $mt_slider_query = new WP_Query([
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    /**
+                                     * 
+                                     * mt_slider_after_content
+                                     * 
+                                     */
+                                    do_action('mt_slider_after_content'. get_the_ID());
+                                ?>
                             </div>
                         </div>
                     <?php endwhile;

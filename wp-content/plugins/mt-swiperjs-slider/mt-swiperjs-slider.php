@@ -18,7 +18,7 @@ defined('ABSPATH') || die('No script kiddies please!');
 
 
 
-add_action('wp_enqueue_scripts', function(){
+add_action('wp_enqueue_scripts', function () {
 
     // CSS
     wp_enqueue_style('mt-animate', plugin_dir_url(__FILE__) . 'public/assets/css/animate.css', [], '1.0.0', 'all');
@@ -37,12 +37,18 @@ add_action('wp_enqueue_scripts', function(){
     wp_enqueue_script('mt-swiper-slider', plugin_dir_url(__FILE__) . 'public/assets/js/swiper-bundle.js', ['jquery'], '1.0.0', true);
     wp_enqueue_script('mt-wow', plugin_dir_url(__FILE__) . 'public/assets/js/wow.js', ['jquery'], '1.0.0', true);
     wp_enqueue_script('mt-slider-main', plugin_dir_url(__FILE__) . 'public/assets/js/main.js', ['jquery'], '1.0.0', true);
+
+
+    wp_localize_script('mt-slider-main', "SLIDER_DATA", array(
+        'slider_next' => apply_filters('slider_prev_js', '.slider-prev'),
+        'slider-prev' => apply_filters('slider_next_js', '.slider-next'),
+    ));
 });
 
 require_once 'functions.php';
 
 
-add_action('init', function(){
+add_action('init', function () {
     register_post_type('mt_swiperjs_slider', [
         'labels' => [
             'name' => 'MT Sliders',
@@ -55,7 +61,7 @@ add_action('init', function(){
     ]);
 });
 
-add_action('admin_menu', function(){
+add_action('admin_menu', function () {
     add_submenu_page(
         'edit.php?post_type=mt_swiperjs_slider',
         'Settings',
@@ -67,6 +73,13 @@ add_action('admin_menu', function(){
 });
 
 
+// Footer Hook
+
+add_filter('the_title', function ($title) {
+    return '<h2>--->' . $title . ' </h2>' . get_the_ID();
+}, 10, 1);
 
 
-
+add_action('init', function () {
+    remove_filter('mt_slider_after_content', 'mt_slider_modificatoins', 10, 1);
+});

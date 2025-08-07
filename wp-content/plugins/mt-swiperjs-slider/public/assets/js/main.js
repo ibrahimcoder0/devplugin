@@ -61,7 +61,7 @@
 		nextEl: '.slider-prev',
 		prevEl: '.slider-next',
 	}
-
+	// console.log(SLIDER_DATA);
 	const slider3swiper = new Swiper('.tp-slider-3-active', {
 		// Optional parameters
 		loop: Boolean($('.tp-slider-3-active').data('loop')),
@@ -97,6 +97,7 @@
 		},
 		// Navigation arrows
 		navigation: Boolean($('.tp-slider-3-active').data('arrow')) ? navigation : false,
+
 		pagination: Boolean($('.tp-slider-3-active').data('pagination')) ? pagination : false,
 	});
 	////////////////////////////////////////////////////
