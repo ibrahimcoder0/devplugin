@@ -83,3 +83,97 @@ add_filter('the_title', function ($title) {
 add_action('init', function () {
     remove_filter('mt_slider_after_content', 'mt_slider_modificatoins', 10, 1);
 });
+
+
+
+
+// === OPP Theory ===
+// 1. Encapsulation
+// 2. Inheritance
+// 3. Polymorphism
+// 4. Abstraction
+
+//  Public, Private, Proteacted
+
+
+// == Encapsulation and Inheritance ==
+
+// class Pijon
+// {
+
+//     public $pijon_specis = 'Desi Pijon <br>';
+
+//     function fly()
+//     {
+//         echo 'I can fly <br>';
+//     }
+// }
+
+// $pijon_obj = new Pijon();
+// $pijon_obj->fly();
+// echo $pijon_obj->pijon_specis;
+
+// class ChildPijon extends Pijon
+// {
+
+//     function SummerSalt()
+//     {
+//         echo 'I can do summer Salt <br>';
+//     }
+// }
+
+// $child_obj = new ChildPijon();
+
+// $child_obj->SummerSalt();
+// $child_obj->fly();
+// echo $child_obj->pijon_specis;
+
+// == Polymorphism ===
+
+class Bird
+{
+
+    public $name;
+    function __construct($param)
+    {
+        $this->name = $param;
+    }
+
+    function Fly()
+    {
+        echo $this->name . 'I can Fly <br>';
+    }
+
+    function get_name()
+    {
+        return $this->name;
+    }
+}
+
+
+class Egle extends Bird
+{
+
+    function Fly()
+    {
+        echo parent::get_name() . ' I can Fly better than othars <br>';
+    }
+}
+
+$egle_obj = new Egle('Egle');
+
+$egle_obj->fly();
+
+
+class Pijon extends Bird
+{
+
+    function Fly()
+    {
+        echo parent::get_name() . ' I can Fly Average altiude. <br>';
+    }
+}
+
+$pijon_obj = new Pijon('Pijon');
+
+$pijon_obj->fly();
